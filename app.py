@@ -1,7 +1,11 @@
 import streamlit as st
 from PIL import Image
 
-st.set_page_config(page_title="SHER AI", page_icon="🦁", layout="wide")
+st.set_page_config(
+    page_title="🦁 SHER AI",
+    page_icon="🦁",
+    layout="wide"
+)
 
 st.title("🦁 SHER AI")
 st.write("Welcome Pradeep Uikey 👋")
@@ -11,25 +15,36 @@ uploaded_file = st.file_uploader(
     type=["png", "jpg", "jpeg"]
 )
 
-if uploaded_file:
+if uploaded_file is not None:
     image = Image.open(uploaded_file)
 
-    st.image(image, caption="Uploaded Chart", use_container_width=True)
+    st.image(image, caption="Uploaded TradingView Chart", use_container_width=True)
+
+    symbol = st.selectbox(
+        "📈 Select Market",
+        ["BTCUSDT", "NIFTY", "BANKNIFTY", "GOLD", "ETHUSDT"]
+    )
 
     timeframe = st.selectbox(
-        "⏰ Select Timeframe",
-        ["1 Minute", "5 Minute", "15 Minute", "1 Hour", "4 Hour", "1 Day"]
+        "⏰ Timeframe",
+        ["1m", "5m", "15m", "1H", "4H", "1D"]
     )
 
     if st.button("🤖 Analyze Chart"):
-        st.success("Analysis Started...")
+        st.success("Analysis Started 🚀")
 
-        st.subheader("📊 AI Analysis")
+        st.subheader("AI Result")
 
-        st.write("Trend : ⏳ Detecting...")
-        st.write("BOS : ⏳ Detecting...")
-        st.write("Liquidity : ⏳ Detecting...")
-        st.write("Order Block : ⏳ Detecting...")
-        st.write("Entry : ---")
-        st.write("Stop Loss : ---")
-        st.write("Target : ---")
+        st.info(f"""
+Trend : Waiting...
+
+Symbol : {symbol}
+
+Timeframe : {timeframe}
+
+Entry : --
+
+Stop Loss : --
+
+Target : --
+""")
