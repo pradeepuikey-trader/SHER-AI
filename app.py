@@ -31,29 +31,29 @@ if uploaded_file is not None:
     )
 
     if st.button("🤖 Analyze Chart"):
-    result = analyze_chart(symbol, timeframe)
+            result = analyze_chart(symbol, timeframe)
 
-st.success("Analysis Complete")
+    st.success("Analysis Complete")
 
-st.subheader("📊 SHER AI Result")
+    st.subheader("📊 SHER AI Result")
 
-st.metric("Trend", result["trend"])
-st.metric("Confidence", result["confidence"])
+    st.metric("Trend", result["trend"])
+    st.metric("Confidence", result["confidence"])
 
-st.write("### Trade Setup")
+    st.write("### Trade Setup")
 
-st.write("📍 Entry :", result["entry"])
-st.write("🛑 Stop Loss :", result["stoploss"])
-st.write("🎯 Target 1 :", result["target1"])
-st.write("🎯 Target 2 :", result["target2"])
-st.write("💰 Risk Reward :", result["rr"])
+    st.write("📍 Entry :", result["entry"])
+    st.write("🛑 Stop Loss :", result["stoploss"])
+    st.write("🎯 Target 1 :", result["target1"])
+    st.write("🎯 Target 2 :", result["target2"])
+    st.write("💰 Risk Reward :", result["rr"])
 
-st.write("### Smart Money Concept")
+    st.write("### Smart Money Concept")
 
-st.checkbox("BOS", value=result["bos"], disabled=True)
-st.checkbox("CHoCH", value=result["choch"], disabled=True)
-st.checkbox("Liquidity Sweep", value=result["liquidity"], disabled=True)
-st.checkbox("Order Block", value=result["orderblock"], disabled=True)
-st.checkbox("Fair Value Gap", value=result["fvg"], disabled=True)
+    st.checkbox("BOS", value=result["bos"], disabled=True)
+    st.checkbox("CHoCH", value=result["choch"], disabled=True)
+    st.checkbox("Liquidity Sweep", value=result["liquidity"], disabled=True)
+    st.checkbox("Order Block", value=result["orderblock"], disabled=True)
+    st.checkbox("Fair Value Gap", value=result["fvg"], disabled=True)
 
-st.info(result["reason"])
+    st.info(result["reason"])
