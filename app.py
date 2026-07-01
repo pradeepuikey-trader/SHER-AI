@@ -9,76 +9,69 @@ st.set_page_config(
 )
 
 st.title("🦁 SHER AI")
-st.write("Welcome Pradeep Uikey 👋")
+st.caption("Smart Hybrid Engine for Risk Analysis")
 
 uploaded_file = st.file_uploader(
     "📷 Upload TradingView Screenshot",
     type=["png", "jpg", "jpeg"]
 )
 
-if uploaded_file is not None:
+if uploaded_file:
 
     image = Image.open(uploaded_file)
 
     st.image(
         image,
-        caption="Uploaded TradingView Chart",
+        caption="TradingView Screenshot",
         use_container_width=True
     )
 
-    symbol = st.selectbox(
-        "📈 Select Market",
-        [
-            "BTCUSDT",
-            "ETHUSDT",
-            "NIFTY",
-            "BANKNIFTY",
-            "GOLD"
-        ]
-    )
+    st.divider()
 
-    timeframe = st.selectbox(
-        "⏰ Timeframe",
-        [
-            "1m",
-            "5m",
-            "15m",
-            "1H",
-            "4H",
-            "1D"
-        ]
-    )
+    col1, col2 = st.columns(2)
 
-    if st.button("🤖 Analyze Chart"):
+    with col1:
+        symbol = st.selectbox(
+            "📈 Market",
+            [
+                "BTCUSDT",
+                "ETHUSDT",
+                "NIFTY",
+                "BANKNIFTY",
+                "GOLD"
+            ]
+        )
 
-        result = analyze_chart(symbol, timeframe)
+    with col2:
+        timeframe = st.selectbox(
+            "⏰ Timeframe",
+            [
+                "1m",
+                "5m",
+                "15m",
+                "1H",
+                "4H",
+                "1D"
+            ]
+        )
 
-        st.success("Analysis Complete ✅")
+    st.write(f"Market : **{symbol}**")
+    st.write(f"Timeframe : **{timeframe}**")
 
-        st.subheader("📊 SHER AI Result")
+    if st.button("🤖 Analyze with Gemini AI"):
 
-        col1, col2 = st.columns(2)
+        with st.spinner("Gemini AI is analyzing chart..."):
 
-        with col1:
-            st.metric("Trend", result["trend"])
-            st.metric("Confidence", result["confidence"])
+            result = analyze_chart(image)
 
-        with col2:
-            st.metric("Entry", result["entry"])
-            st.metric("Stop Loss", result["stoploss"])
+        if result["success"]:
 
-        st.metric("Target 1", result["target1"])
-        st.metric("Target 2", result["target2"])
-        st.metric("Risk Reward", result["rr"])
+            st.success("Analysis Completed")
 
-        st.subheader("🧠 Smart Money Concept")
+            st.subheader("🦁 SHER AI Report")
 
-        st.checkbox("BOS", value=result["bos"], disabled=True)
-        st.checkbox("CHoCH", value=result["choch"], disabled=True)
-        st.checkbox("Liquidity Sweep", value=result["liquidity"], disabled=True)
-        st.checkbox("Order Block", value=result["orderblock"], disabled=True)
-        st.checkbox("Fair Value Gap", value=result["fvg"], disabled=True)
+            st.markdown(result["analysis"])
 
-        st.subheader("💡 AI Reason")
+        else:
 
-        st.info(result["reason"])
+            st.error(result["analysis"])
