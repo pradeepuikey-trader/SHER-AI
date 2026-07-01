@@ -55,22 +55,52 @@ if uploaded_file:
             ]
         )
 
-    st.write(f"Market : **{symbol}**")
-    st.write(f"Timeframe : **{timeframe}**")
-
     if st.button("🤖 Analyze with Gemini AI"):
 
-        with st.spinner("Gemini AI is analyzing chart..."):
+        with st.spinner("Analyzing Chart..."):
 
             result = analyze_chart(image)
 
         if result["success"]:
 
-            st.success("Analysis Completed")
+            analysis = result["analysis"]
 
-            st.subheader("🦁 SHER AI Report")
+            st.success("Analysis Complete ✅")
 
-            st.markdown(result["analysis"])
+            st.subheader("📊 SHER AI Result")
+
+            c1, c2 = st.columns(2)
+
+            with c1:
+                st.metric("Trend", analysis["trend"])
+                st.metric("Confidence", analysis["confidence"])
+                st.metric("Entry", analysis["entry"])
+                st.metric("Target 1", analysis["target1"])
+
+            with c2:
+                st.metric("Stop Loss", analysis["stoploss"])
+                st.metric("Target 2", analysis["target2"])
+
+            st.divider()
+
+            st.subheader("🧠 Smart Money Concept")
+
+            a, b = st.columns(2)
+
+            with a:
+                st.checkbox("BOS", value=analysis["bos"], disabled=True)
+                st.checkbox("Liquidity Sweep", value=analysis["liquidity"], disabled=True)
+                st.checkbox("Fair Value Gap", value=analysis["fvg"], disabled=True)
+
+            with b:
+                st.checkbox("CHoCH", value=analysis["choch"], disabled=True)
+                st.checkbox("Order Block", value=analysis["orderblock"], disabled=True)
+
+            st.divider()
+
+            st.subheader("💡 AI Reason")
+
+            st.info(analysis["reason"])
 
         else:
 
