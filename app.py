@@ -31,20 +31,29 @@ if uploaded_file is not None:
     )
 
     if st.button("🤖 Analyze Chart"):
-        st.success("Analysis Started 🚀")
+    result = analyze_chart(symbol, timeframe)
 
-        st.subheader("AI Result")
+st.success("Analysis Complete")
 
-        st.info(f"""
-Trend : Waiting...
+st.subheader("📊 SHER AI Result")
 
-Symbol : {symbol}
+st.metric("Trend", result["trend"])
+st.metric("Confidence", result["confidence"])
 
-Timeframe : {timeframe}
+st.write("### Trade Setup")
 
-Entry : --
+st.write("📍 Entry :", result["entry"])
+st.write("🛑 Stop Loss :", result["stoploss"])
+st.write("🎯 Target 1 :", result["target1"])
+st.write("🎯 Target 2 :", result["target2"])
+st.write("💰 Risk Reward :", result["rr"])
 
-Stop Loss : --
+st.write("### Smart Money Concept")
 
-Target : --
-""")
+st.checkbox("BOS", value=result["bos"], disabled=True)
+st.checkbox("CHoCH", value=result["choch"], disabled=True)
+st.checkbox("Liquidity Sweep", value=result["liquidity"], disabled=True)
+st.checkbox("Order Block", value=result["orderblock"], disabled=True)
+st.checkbox("Fair Value Gap", value=result["fvg"], disabled=True)
+
+st.info(result["reason"])
