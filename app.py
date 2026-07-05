@@ -36,12 +36,11 @@ st.progress(confidence / 100)
 
 st.metric(
     "⭐ AI Confidence",
-    f"{confidence}%"
-)
+    f"{confidence}%")
 
-st.markdown("---")
-            st.progress(score/100)
-            st.metric("⭐ AI Trade Score", f"{score}/100")
+st.markdown("---") 
+st.progress(score/100)
+st.metric("⭐ AI Trade Score", f"{score}/100")
 
             c1,c2=st.columns(2)
             with c1:
