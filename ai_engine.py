@@ -1,19 +1,7 @@
 from gemini_ai import analyze_image
 
 def analyze_chart(image):
-
     try:
-
-        analysis = analyze_image(image)
-
-        return {
-            "success": True,
-            "analysis": analysis
-        }
-
+        return {"success":True,"analysis":analyze_image(image)}
     except Exception as e:
-
-        return {
-            "success": False,
-            "analysis": str(e)
-        }
+        return {"success":False,"analysis":str(e)}
