@@ -19,16 +19,34 @@ if uploaded_file:
 
         if result["success"]:
             analysis = result["analysis"]
-            score, signal = calculate_score(analysis)
-
+            score, signal, confidence = calculate_score(analysis)
             st.success(signal)
+            st.markdown("---")
+
+if "BUY" in signal:
+    st.success(f"## {signal}")
+
+elif "SELL" in signal:
+    st.error(f"## {signal}")
+
+else:
+    st.warning(f"## {signal}")
+
+st.progress(confidence / 100)
+
+st.metric(
+    "⭐ AI Confidence",
+    f"{confidence}%"
+)
+
+st.markdown("---")
             st.progress(score/100)
             st.metric("⭐ AI Trade Score", f"{score}/100")
 
             c1,c2=st.columns(2)
             with c1:
                 st.metric("Trend", analysis["trend"])
-                st.metric("Confidence", analysis["confidence"])
+                
                 st.metric("Entry", analysis["entry"])
                 st.metric("Target 1", analysis["target1"])
             with c2:
