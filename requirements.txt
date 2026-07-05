@@ -1,7 +1,4 @@
 streamlit
-opencv-python-headless
 pillow
-numpy
-pandas
 google-generativeai
 python-dotenv
