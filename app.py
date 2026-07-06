@@ -65,8 +65,8 @@ if uploaded_file:
         if result["success"]:
 
             analysis = result["analysis"]
-           capital = 10000
-           risk_percent = 2
+            capital = 10000
+            risk_percent = 2
 
            position = calculate_position_size(
            capital,
