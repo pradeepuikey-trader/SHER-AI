@@ -1,3 +1,4 @@
+from risk_manager import calculate_rr
 import streamlit as st
 from PIL import Image
 from ai_engine import analyze_chart
@@ -63,7 +64,12 @@ if uploaded_file:
         if result["success"]:
 
             analysis = result["analysis"]
-
+           
+            rr = calculate_rr(
+               analysis["entry"],
+               analysis["stoploss"],
+               analysis["target1"]
+            )
             score, signal, confidence = calculate_score(analysis)
 
             if "BUY" in signal:
@@ -101,6 +107,10 @@ if uploaded_file:
 
                 st.metric("Stop Loss", analysis["stoploss"])
                 st.metric("Target 2", analysis["target2"])
+
+                st.metric("Risk", rr["risk"])
+                st.metric("Reward", rr["reward"])
+                st.metric("Risk : Reward", rr["rr"])
 
             st.divider()
 
