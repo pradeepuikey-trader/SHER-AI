@@ -1,3 +1,4 @@
+from position_size import calculate_position_size
 from risk_manager import calculate_rr
 import streamlit as st
 from PIL import Image
@@ -64,7 +65,15 @@ if uploaded_file:
         if result["success"]:
 
             analysis = result["analysis"]
-           
+           capital = 10000
+           risk_percent = 2
+
+           position = calculate_position_size(
+           capital,
+               risk_percent,
+               analysis["entry"],
+               analysis["stoploss"]
+)
             rr = calculate_rr(
                analysis["entry"],
                analysis["stoploss"],
@@ -111,6 +120,12 @@ if uploaded_file:
                 st.metric("Risk", rr["risk"])
                 st.metric("Reward", rr["reward"])
                 st.metric("Risk : Reward", rr["rr"])
+
+                st.metric("💰 Capital", f"₹{capital}")
+                st.metric("⚠ Risk %", f"{risk_percent}%")
+                st.metric("💸 Max Risk", f"₹{position['risk_amount']}")
+                st.metric("📦 Position Size", position["position_size"])
+
 
             st.divider()
 
