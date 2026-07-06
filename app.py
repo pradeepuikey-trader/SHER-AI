@@ -68,8 +68,8 @@ if uploaded_file:
             capital = 10000
             risk_percent = 2
 
-           position = calculate_position_size(
-           capital,
+            position = calculate_position_size(
+            capital,
                risk_percent,
                analysis["entry"],
                analysis["stoploss"]
